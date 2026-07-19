@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="LSC.SmartCertify.API/LSC.SmartCertify.API.csproj" />
+  <Project Path="LSC.SmartCertify.Application/LSC.SmartCertify.Application.csproj" />
+  <Project Path="LSC.SmartCertify.Domain/LSC.SmartCertify.Domain.csproj" />
+  <Project Path="LSC.SmartCertify.Infrastructure/LSC.SmartCertify.Infrastructure.csproj" />
+</Solution>
