@@ -1,0 +1,117 @@
+{
+  "vim.enable": true,
+  "vim.easymotion": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [
+        "j",
+        "j"
+      ],
+      "after": [
+        "<Esc>"
+      ]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "<leader>",
+        "d"
+      ],
+      "after": [
+        "d",
+        "d"
+      ]
+    },
+    {
+      "before": [
+        "<C-n>"
+      ],
+      "commands": [
+        ":nohl"
+      ]
+    },
+    {
+      "before": [
+        "K"
+      ],
+      "commands": [
+        "lineBreakInsert"
+      ],
+      "silent": true
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "p"
+      ],
+      "after": [
+        "p",
+        "g",
+        "v",
+        "y"
+      ]
+    }
+  ],
+  "vim.leader": "<space>",
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-f>": false
+  },
+  // To improve performance
+  "extensions.experimental.affinity": {
+    "vscodevim.vim": 1
+  },
+  "editor.tokenColorCustomizations": {
+    "comments": "#A0A0A0"
+  },
+  "workbench.startupEditor": "none",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "workbench.editor.enablePreview": false,
+  "editor.minimap.enabled": false,
+  "terminal.integrated.localEchoStyle": "dim",
+  "editor.codeActionsOnSave": {},
+  "editor.lightbulb.enabled": "off",
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.codeLens": false,
+  "editor.fontSize": 13,
+  "editor.acceptSuggestionOnEnter": "off",
+  "editor.stickyScroll.enabled": false,
+  "editor.inlineSuggest.enabled": false,
+  "emmet.syntaxProfiles": {},
+  "workbench.colorCustomizations": {
+    "editorError.foreground": "#000000",
+    "editorWarning.foreground": "#000000",
+    "editorInfo.foreground": "#000000",
+    "debugConsole.warningForeground": "#ef9d05",
+    "debugConsole.infoForeground": "#00ff00",
+    "debugConsole.errorForeground": "#ff0000",
+    "debugConsole.sourceForeground": "#00ff00",
+    "terminal.foreground": "#00ff00"
+  },
+  "extensions.ignoreRecommendations": true,
+  "git.enableSmartCommit": true,
+  "parallels-desktop.extension.path": "/Users/drew/.parallels-desktop-vscode",
+  "parallels-desktop.git.path": "/usr/bin/git",
+  "parallels-desktop.prlctl.path": "/usr/local/bin/prlctl",
+  "parallels-desktop.brew.path": "/opt/homebrew/bin/brew",
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "csharp": false
+  },
+  "github.copilot.inlineSuggest.enable": false,
+  "github.copilot.suggestionDisplay": "none",
+  "chat.commandCenter.enabled": false,
+  "gitlens.plusFeatures.enabled": false,
+  "parallels-desktop.devops-service.path": "/Users/drew/.parallels-desktop-vscode/tools/prldevops",
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
+  "workbench.editor.empty.hint": "hidden"
+}

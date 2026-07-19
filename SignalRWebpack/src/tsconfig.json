@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",                          // Change this from "ES5"
+    "module": "commonjs",
+    "lib": ["dom", "es2022"],                    // Ensure you include a modern ES lib
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["**/*"]
+}
