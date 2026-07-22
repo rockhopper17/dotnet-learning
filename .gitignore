@@ -6,6 +6,11 @@ obj/
 *.user
 *.suo
 .vs/
+.vscode/
+[Pp]ublish/
+TestResults/
+*.pubxml
+*.pdb
 
 # ---------------------------------------------------------------
 # Node / JS package cache and build output
@@ -21,6 +26,7 @@ dist/
 *.log
 .env
 *.db
+.idea/
 
 # Other people's course-starter repos, not my work
 tutorials/codele-devkit-demo/
