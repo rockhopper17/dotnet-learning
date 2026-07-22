@@ -6,17 +6,27 @@ namespace MvcMovie.Controllers;
 public class  HelloWorldController : Controller
 {
     // GET: /HelloWorld/
-    public string Index()
+    public IActionResult Index()
     {
-        return "default action";
+        return View();
     }
+    // public string Index()
+    // {
+    //     return "default action";
+    // }
 
     // GET: /HelloWorld/Welcome
-    public string Welcome(string name, int ID = 1)
+    public IActionResult Welcome(string name, int numTimes = 1)
     {
-        // return "welcome method";
-        return HtmlEncoder.Default.Encode($"Hello {name}, ID is: {ID}");
+        ViewData["Message"] = "hello " + name;
+        ViewData["NumTimes"] = numTimes;
+        return View();
     }
+    // public string Welcome(string name, int ID = 1)
+    // {
+    //     // return "welcome method";
+    //     return HtmlEncoder.Default.Encode($"Hello {name}, ID is: {ID}");
+    // }
     // public string Welcome(string name, int numTimes = 1)
     // {
     //     // return "welcome method";
