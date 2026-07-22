@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "smartcertify-api-clean-architecture-dotnet9"
+		},
+		{
+			"path": "smartcertify-functions-dotnet9"
+		},
+		{
+			"path": "smartcertify-ui-angular19"
+		},
+		{
+			"path": "mycode"
+		}
+	],
+	"settings": {}
+}
