@@ -5,12 +5,39 @@ Accept: application/json
 
 ###
 
+GET {{TodoApi_HostAddress}}/api/todoitems/
+Accept: application/json
+
+###
+
+GET {{TodoApi_HostAddress}}/api/todoitems/1
+Accept: application/json
+
+###
+
 POST {{TodoApi_HostAddress}}/api/todoitems
 Content-Type: application/json
 
 {
-  "name": "walk dog",
-  "isComplete": true
+    "name": "walk dog",
+    "isComplete": true,
+    "secret": "luna stars"
 }
+
+###
+
+PUT {{TodoApi_HostAddress}}/api/todoitems/1
+Content-Type: application/json
+
+{
+    "id": 1,
+    "name": "feed fish",
+    "isComplete": false,
+    "secret": "luna stars ceres"
+}
+
+###
+
+DELETE {{TodoApi_HostAddress}}/api/todoitems/1
 
 ###
