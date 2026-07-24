@@ -26,3 +26,7 @@ Content-Type: application/json
 
 ###
 
+GET {{API_HostAddress}}/api/courses/3
+Accept: application/json
+
+###
