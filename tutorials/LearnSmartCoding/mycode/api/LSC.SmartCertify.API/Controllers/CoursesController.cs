@@ -1,3 +1,4 @@
+using FluentValidation;
 using LSC.SmartCertify.Application.DTOs;
 using LSC.SmartCertify.Application.Interfaces.Courses;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,17 @@ namespace LSC.SmartCertify.API.Controllers;
 public class CoursesController : ControllerBase
 {
     private readonly ICourseService _service;
+    private readonly IValidator<CreateCourseDto> validator;
+    private readonly IValidator<UpdateCourseDto> updateValidator;
 
-    public CoursesController(ICourseService service)
+    public CoursesController(
+        ICourseService service,
+        IValidator<CreateCourseDto> validator,
+        IValidator<UpdateCourseDto> updateValidator)
     {
         _service = service;
+        this.validator = validator;
+        this.updateValidator = updateValidator;
     }
 
     [HttpGet]
@@ -44,6 +52,13 @@ public class CoursesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> CreateCourse([FromBody] CreateCourseDto createCourseDto)
     {
+        var validationResult = await validator.ValidateAsync(createCourseDto);
+
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors);
+        }
+
         await _service.AddCourseAsync(createCourseDto);
         return CreatedAtAction(nameof(GetCourse), new { id = createCourseDto.Title}, createCourseDto);
     }
@@ -56,6 +71,13 @@ public class CoursesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateCourse(int id, [FromBody] UpdateCourseDto updateCourseDto)
     {
+        var validationResult = await updateValidator.ValidateAsync(updateCourseDto);
+
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors);
+        }
+
         await _service.UpdateCourseAsync(id, updateCourseDto);
         return NoContent();
     }

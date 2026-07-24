@@ -5,6 +5,9 @@ using Scalar.AspNetCore;
 using LSC.SmartCertify.Application;
 using LSC.SmartCertify.Application.Interfaces.Courses;
 using LSC.SmartCertify.Application.Services;
+using LSC.SmartCertify.API.Filters;
+using FluentValidation;
+using LSC.SmartCertify.Application.DTOValidations;
 
 // namespace LSC.SmartCertify.API;
 
@@ -18,11 +21,21 @@ builder.Services.AddDbContext<SmartCertifyContext>(options =>
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ValidationFilter>();
+}).ConfigureApiBehaviorOptions(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
 // builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
+
+builder.Services.AddValidatorsFromAssemblyContaining<CreateCourseValidator>();
 
 builder.Services.AddScoped<ICourseRepository, CourseRepositry>();
 builder.Services.AddScoped<ICourseService, CourseService>();

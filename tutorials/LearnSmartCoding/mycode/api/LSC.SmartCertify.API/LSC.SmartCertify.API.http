@@ -19,14 +19,39 @@ POST {{API_HostAddress}}/api/courses
 Content-Type: application/json
 
 {
-    # "title": "my first course",
-    "title": "my second course",
+    "title": "my first course",
+    # "title": "my second course",
     "description": "luna stars"
 }
 
 ###
 
 GET {{API_HostAddress}}/api/courses/3
+Accept: application/json
+
+###
+
+PUT {{API_HostAddress}}/api/courses/2
+Content-Type: application/json
+
+{
+    "title": "my first course",
+    # "title": "my second course updated",
+    "description": "luna stars"
+}
+
+###
+
+PATCH  {{API_HostAddress}}/api/courses/3
+Content-Type: application/json
+
+{
+    "description": "luna stars asteroid belt"
+}
+
+###
+
+DELETE  {{API_HostAddress}}/api/courses/3
 Accept: application/json
 
 ###
