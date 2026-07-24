@@ -1,8 +1,28 @@
 @API_HostAddress = http://localhost:5210
 
 GET {{API_HostAddress}}/openapi/v1.json
+Accept: application/json
+
+###
 
 GET {{API_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{API_HostAddress}}/api/courses
+Accept: application/json
+
+###
+
+POST {{API_HostAddress}}/api/courses
+Content-Type: application/json
+
+{
+    # "title": "my first course",
+    "title": "my second course",
+    "description": "luna stars"
+}
+
+###
+

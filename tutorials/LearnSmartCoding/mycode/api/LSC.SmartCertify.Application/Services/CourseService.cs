@@ -1,6 +1,7 @@
 using AutoMapper;
 using LSC.SmartCertify.Application.DTOs;
 using LSC.SmartCertify.Application.Interfaces.Courses;
+using LSC.SmartCertify.Domain.Entities;
 
 namespace LSC.SmartCertify.Application.Services;
 
@@ -15,40 +16,51 @@ public class CourseService : ICourseService
         _mapper = mapper;
     }
 
-    public Task AddCourseAsync(CreateCourseDto createCourseDto)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task DeleteCourseAsync(int courseId)
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task<IEnumerable<CourseDto>> GetAllCoursesAsync()
     {
         var courses = await _courseRepository.GetAllCoursesAsync();
-
         return _mapper.Map<IEnumerable<CourseDto>>(courses);
     }
 
-    public Task<CourseDto?> GetCourseByIdAsync(int courseId)
+    public async Task<CourseDto?> GetCourseByIdAsync(int courseId)
     {
-        throw new NotImplementedException();
+        var course = await _courseRepository.GetCourseByIdAsync(courseId);
+        return course == null ? null : _mapper.Map<CourseDto>(course);
     }
 
-    public Task<bool> IsTitleDuplicateAsync(string title)
+    public async Task<bool> IsTitleDuplicateAsync(string title)
     {
-        throw new NotImplementedException();
+        return await _courseRepository.IsTitleDuplicateAsync(title);
     }
 
-    public Task UpdateCourseAsync(int courseId, UpdateCourseDto updateCourseDto)
+    public async Task AddCourseAsync(CreateCourseDto createCourseDto)
     {
-        throw new NotImplementedException();
+        var course = _mapper.Map<Course>(createCourseDto);
+        course.CreatedBy = 1; // replace w user context
+        course.CreatedOn = DateTime.Now;
+
+        await _courseRepository.AddCourseAsync(course);
     }
 
-    public Task UpdateDescriptionAsync(int courseId, string description)
+    public async Task UpdateCourseAsync(int courseId, UpdateCourseDto updateCourseDto)
     {
-        throw new NotImplementedException();
+        var course = await _courseRepository.GetCourseByIdAsync(courseId);
+        if (course == null) throw new KeyNotFoundException("course not found");
+
+        _mapper.Map(updateCourseDto, course);
+        await _courseRepository.UpdateCourseAsync(course);
+    }
+
+    public async Task DeleteCourseAsync(int courseId)
+    {
+        var course = await _courseRepository.GetCourseByIdAsync(courseId);
+        if (course == null) throw new KeyNotFoundException($"course with id {courseId} not found");
+
+        await _courseRepository.DeleteCourseAsync(course);
+    }
+
+    public async Task UpdateDescriptionAsync(int courseId, string description)
+    {
+        await _courseRepository.UpdateDescriptionAsync(courseId, description);
     }
 }

@@ -3,6 +3,8 @@ using LSC.SmartCertify.Domain.Entities;
 using LSC.SmartCertify.Infrastructure;
 using Scalar.AspNetCore;
 using LSC.SmartCertify.Application;
+using LSC.SmartCertify.Application.Interfaces.Courses;
+using LSC.SmartCertify.Application.Services;
 
 // namespace LSC.SmartCertify.API;
 
@@ -22,7 +24,23 @@ builder.Services.AddOpenApi();
 // builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
 
+builder.Services.AddScoped<ICourseRepository, CourseRepositry>();
+builder.Services.AddScoped<ICourseService, CourseService>();
+
+// don't do this, esp not in production, only if getting access http/https errors or something
+// builder.Services.AddCors(options =>
+// {
+//     options.AddPolicy("default", policy =>
+//     {
+//         policy.AllowAnyOrigin()
+//             .AllowAnyHeader()
+//             .AllowAnyMethod();
+//     });
+// });
+
 var app = builder.Build();
+
+// app.UseCors("default");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
