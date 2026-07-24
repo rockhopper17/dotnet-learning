@@ -8,10 +8,9 @@
 		},
 		{
 			"path": "smartcertify-ui-angular19"
-		},
-		{
-			"path": "mycode"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"dotnet.defaultSolution": "smartcertify-api-clean-architecture-dotnet9/LSC.SmartCertify.API/LSC.SmartCertify.API.sln"
+	}
 }
