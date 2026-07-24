@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using LSC.SmartCertify.Domain.Entities;
 using LSC.SmartCertify.Infrastructure;
 using Scalar.AspNetCore;
+using LSC.SmartCertify.Application;
 
 // namespace LSC.SmartCertify.API;
 
@@ -18,6 +19,8 @@ builder.Services.AddDbContext<SmartCertifyContext>(options =>
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+// builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
 
 var app = builder.Build();
 
