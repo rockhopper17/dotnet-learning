@@ -20,7 +20,7 @@ Content-Type: application/json
 
 ###
 
-PUT {{GameStoreApi_HostAddress}}/games/5
+PUT {{GameStoreApi_HostAddress}}/games/1
 Content-Type: application/json
 
 {
@@ -32,6 +32,6 @@ Content-Type: application/json
 
 ###
 
-DELETE  {{GameStoreApi_HostAddress}}/games/1
+DELETE  {{GameStoreApi_HostAddress}}/games/4
 
 ###
