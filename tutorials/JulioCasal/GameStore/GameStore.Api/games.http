@@ -4,6 +4,18 @@ GET {{GameStoreApi_HostAddress}}/games
 
 ###
 
-GET {{GameStoreApi_HostAddress}}/games/2
+GET {{GameStoreApi_HostAddress}}/games/4
+
+###
+
+POST {{GameStoreApi_HostAddress}}/games
+Content-Type: application/json
+
+{
+    "name": "Super Mario Bros. Wonder",
+    "genre": "Platformer",
+    "price": 59.99,
+    "releaseDate": "2023-10-20"
+}
 
 ###
