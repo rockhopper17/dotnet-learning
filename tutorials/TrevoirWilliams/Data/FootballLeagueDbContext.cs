@@ -1,6 +1,7 @@
 using EFCore.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace EFCore.Data;
 
@@ -16,7 +17,9 @@ public class FootballLeagueDbContext : DbContext
 
         var connectionString = configuration.GetConnectionString("FootballLeague");
 
-        optionsBuilder.UseSqlServer(connectionString);
+        optionsBuilder.UseSqlServer(connectionString)
+            .LogTo(Console.WriteLine, new[] {DbLoggerCategory.Database.Command.Name}, LogLevel.Information)
+            .EnableSensitiveDataLogging();
     }
 
     public DbSet<Team> Teams { get; set; }
