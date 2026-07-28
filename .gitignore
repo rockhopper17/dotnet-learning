@@ -29,11 +29,8 @@ dist/
 .idea/
 
 # Other people's course-starter repos, not my work
-tutorials/codele-devkit-demo/
-tutorials/LearnSmartCoding/smartcertify-api-clean-architecture-dotnet9/
-tutorials/LearnSmartCoding/smartcertify-ui-angular19/
-tutorials/LearnSmartCoding/smartcertify-functions-dotnet9/
-tutorials/JulioCasal/asp-net-backend-full-course-source-code-net8
-tutorials/JulioCasal/game-store-source-code-net10
+tutorials/codele-devkit-demo
+tutorials/LearnSmartCoding/downloads
+tutorials/JulioCasal/downloads
 mslearn/ardalis
 
