@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/inventory.Api/inventory.Api.csproj" />
+    <Project Path="src/inventory.AppHost/inventory.AppHost.csproj" />
+    <Project Path="src/inventory.ServiceDefaults/inventory.ServiceDefaults.csproj" />
+  </Folder>
+</Solution>
