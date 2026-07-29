@@ -1,6 +1,8 @@
 using AwesomeCompany;
 using AwesomeCompany.Entities;
+using Dapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -81,6 +83,41 @@ app.MapPut("increase-salaries-sql", async (int companyId, DatabaseContext dbCont
     await dbContext.SaveChangesAsync();
 
     await dbContext.Database.CommitTransactionAsync();
+
+    return Results.NoContent();
+});
+
+// -----------------------------------------------------------------------------------------
+// PUT increase-salaries-sql-dapper
+// -----------------------------------------------------------------------------------------
+app.MapPut("increase-salaries-sql-dapper", async (int companyId, DatabaseContext dbContext) =>
+{
+    // IQueryable<Company> query = dbContext.Set<Company>();
+    // query = query.Include(c => c.Employees);
+    // Company? company = await query.FirstOrDefaultAsync(c => c.Id == companyId);
+
+    var company = await dbContext
+        .Set<Company>()
+        .FirstOrDefaultAsync(c => c.Id == companyId);
+
+    if (company is null)
+    {
+        return Results.NotFound($"company with id {companyId} was not found");
+    }
+
+    // var transaction = await dbContext.Database.BeginTransactionAsync();
+
+    await dbContext.Database.GetDbConnection().ExecuteAsync(
+        $"UPDATE Employees SET Salary = Salary * 1.1 WHERE CompanyId = @CompanyId",
+        new { CompanyId = company.Id }
+        // transaction.GetDbTransaction()
+    );
+
+    company.LastSalaryUpdateUtc = DateTime.UtcNow;
+
+    await dbContext.SaveChangesAsync();
+
+    // await dbContext.Database.CommitTransactionAsync();
 
     return Results.NoContent();
 });

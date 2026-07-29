@@ -14,3 +14,8 @@ PUT  {{AwesomeCompany_HostAddress}}/increase-salaries-sql?companyId=1
 Accept: application/json
 
 ###
+
+PUT  {{AwesomeCompany_HostAddress}}/increase-salaries-sql-dapper?companyId=1
+Accept: application/json
+
+###
