@@ -1,6 +1,16 @@
 @AwesomeCompany_HostAddress = http://localhost:5089
 
-GET {{AwesomeCompany_HostAddress}}/weatherforecast/
+GET {{AwesomeCompany_HostAddress}}/employees
+Accept: application/json
+
+###
+
+PUT  {{AwesomeCompany_HostAddress}}/increase-salaries?companyId=1
+Accept: application/json
+
+###
+
+PUT  {{AwesomeCompany_HostAddress}}/increase-salaries-sql?companyId=1
 Accept: application/json
 
 ###

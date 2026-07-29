@@ -1,41 +1,88 @@
+using AwesomeCompany;
+using AwesomeCompany.Entities;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddDbContext<DatabaseContext>(opt =>
+{
+    var baseConnection = builder.Configuration.GetConnectionString("BaseSqlServer");
+    var dbName = builder.Configuration["DatabaseName"];
+    opt.UseSqlServer($"{baseConnection};Database={dbName}");
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+// -----------------------------------------------------------------------------------------
+// GET /employees
+// -----------------------------------------------------------------------------------------
+app.MapGet("/employees", async (DatabaseContext dbContext) =>
+    await dbContext.Set<Employee>().ToListAsync());
 
-app.MapGet("/weatherforecast", () =>
+// -----------------------------------------------------------------------------------------
+// PUT increase-salaries
+// -----------------------------------------------------------------------------------------
+app.MapPut("increase-salaries", async (int companyId, DatabaseContext dbContext) =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    // IQueryable<Company> query = dbContext.Set<Company>();
+    // query = query.Include(c => c.Employees);
+    // Company? company = await query.FirstOrDefaultAsync(c => c.Id == companyId);
+
+    var company = await dbContext
+        .Set<Company>()
+        .Include(c => c.Employees)
+        .FirstOrDefaultAsync(c => c.Id == companyId);
+
+    if (company is null)
+    {
+        return Results.NotFound($"company with id {companyId} was not found");
+    }
+
+    foreach (var employee in company.Employees)
+    {
+        employee.Salary *= 1.1m;
+    }
+
+    company.LastSalaryUpdateUtc = DateTime.UtcNow;
+
+    await dbContext.SaveChangesAsync();
+
+    return Results.NoContent();
+});
+
+// -----------------------------------------------------------------------------------------
+// PUT increase-salaries-sql
+// -----------------------------------------------------------------------------------------
+app.MapPut("increase-salaries-sql", async (int companyId, DatabaseContext dbContext) =>
+{
+    // IQueryable<Company> query = dbContext.Set<Company>();
+    // query = query.Include(c => c.Employees);
+    // Company? company = await query.FirstOrDefaultAsync(c => c.Id == companyId);
+
+    var company = await dbContext
+        .Set<Company>()
+        .FirstOrDefaultAsync(c => c.Id == companyId);
+
+    if (company is null)
+    {
+        return Results.NotFound($"company with id {companyId} was not found");
+    }
+
+    await dbContext.Database.BeginTransactionAsync();
+
+    await dbContext.Database.ExecuteSqlInterpolatedAsync(
+        $"UPDATE Employees SET Salary = Salary * 1.1 WHERE CompanyId = {company.Id}"
+    );
+
+    company.LastSalaryUpdateUtc = DateTime.UtcNow;
+
+    await dbContext.SaveChangesAsync();
+
+    await dbContext.Database.CommitTransactionAsync();
+
+    return Results.NoContent();
+});
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
