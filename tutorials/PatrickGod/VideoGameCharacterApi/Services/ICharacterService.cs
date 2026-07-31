@@ -5,9 +5,9 @@ namespace VideoGameCharacterApi.Services;
 
 public interface ICharacterService
 {
-    Task<List<CharacterDto>> GetAllCharactersAsync();
-    Task<CharacterDto?> GetCharacterByIdAsync(int id);
-    Task<CharacterDto> AddCharacterAsync(Character character);
-    Task<bool> UpdateCharacterAsync(int id, Character character);
+    Task<List<CharacterReadDto>> GetAllCharactersAsync();
+    Task<CharacterReadDto?> GetCharacterByIdAsync(int id);
+    Task<CharacterReadDto> AddCharacterAsync(CharacterCreateDto character);
+    Task<bool> UpdateCharacterAsync(int id, CharacterUpdateDto character);
     Task<bool> DeleteCharacterAsync(int id);
 }

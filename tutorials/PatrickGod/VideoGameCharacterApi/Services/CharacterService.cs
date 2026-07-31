@@ -15,32 +15,58 @@ public class CharacterService(AppDbContext dbContext) : ICharacterService
     //     new Character { Id = 7, Name = "Zelda", Game = "The Legend of Zelda", Role = "Princess" }
     // };
 
-    public Task<CharacterDto> AddCharacterAsync(Character character)
+    public async Task<CharacterReadDto> AddCharacterAsync(CharacterCreateDto character)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> DeleteCharacterAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<List<CharacterDto>> GetAllCharactersAsync()
-        => await dbContext.Characters.Select(c => new CharacterDto
+        var newCharacter = new Character
         {
+            Name = character.Name,
+            Game = character.Game,
+            Role = character.Role
+        };
+
+        dbContext.Characters.Add(newCharacter);
+        await dbContext.SaveChangesAsync();
+
+        return new CharacterReadDto
+        {
+            Id = newCharacter.Id,
+            Name = newCharacter.Name,
+            Game = newCharacter.Game,
+            Role = newCharacter.Role
+        };
+    }
+
+    public async Task<bool> DeleteCharacterAsync(int id)
+    {
+        var existingCharacter = await dbContext.Characters.FindAsync(id);
+        
+        if (existingCharacter is null)
+            return false;
+
+        dbContext.Characters.Remove(existingCharacter);
+        await dbContext.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<List<CharacterReadDto>> GetAllCharactersAsync()
+        => await dbContext.Characters.Select(c => new CharacterReadDto
+        {
+            Id = c.Id,
             Name = c.Name,
             Game = c.Game,
             Role = c.Role
         }).ToListAsync();
         // => await Task.FromResult(characters);  // uses static list
 
-    public async Task<CharacterDto?> GetCharacterByIdAsync(int id)
+    public async Task<CharacterReadDto?> GetCharacterByIdAsync(int id)
     {
         // var result = characters.FirstOrDefault(c => c.Id == id);  // uses static list
         var result = await dbContext.Characters
             .Where(c => c.Id == id)
-            .Select(c => new CharacterDto
+            .Select(c => new CharacterReadDto
             {
+                Id = c.Id,
                 Name = c.Name,
                 Game = c.Game,
                 Role = c.Role
@@ -50,8 +76,19 @@ public class CharacterService(AppDbContext dbContext) : ICharacterService
         return result;
     }
 
-    public Task<bool> UpdateCharacterAsync(int id, Character character)
+    public async Task<bool> UpdateCharacterAsync(int id, CharacterUpdateDto character)
     {
-        throw new NotImplementedException();
+        var existingCharacter = await dbContext.Characters.FindAsync(id);
+        
+        if (existingCharacter is null)
+            return false;
+
+        existingCharacter.Name = character.Name;
+        existingCharacter.Game = character.Game;
+        existingCharacter.Role = character.Role;
+
+        await dbContext.SaveChangesAsync();
+
+        return true;
     }
 }

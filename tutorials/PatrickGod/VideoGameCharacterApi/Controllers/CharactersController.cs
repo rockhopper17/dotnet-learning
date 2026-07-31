@@ -10,11 +10,11 @@ namespace VideoGameCharacterApi.Controllers;
 public class CharactersController(ICharacterService service) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<List<CharacterDto>>> GetCharacters()
+    public async Task<ActionResult<List<CharacterReadDto>>> GetCharacters()
         => Ok(await service.GetAllCharactersAsync());
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<CharacterDto>> GetCharacter(int id)
+    public async Task<ActionResult<CharacterReadDto>> GetCharacter(int id)
     {
         var character = await service.GetCharacterByIdAsync(id);
         if (character is null)
@@ -22,5 +22,26 @@ public class CharactersController(ICharacterService service) : ControllerBase
             return NotFound($"no character with id {id}");
         }
         return Ok(character);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<CharacterCreateDto>> AddCharacter(CharacterCreateDto character)
+    {
+        var createdCharacter = await service.AddCharacterAsync(character);
+        return CreatedAtAction(nameof(GetCharacter), new { id = createdCharacter.Id }, createdCharacter);
+    }
+
+    [HttpPut]
+    public async Task<ActionResult> UpdateCharacter(int id, CharacterUpdateDto character)
+    {
+        var updated = await service.UpdateCharacterAsync(id, character);
+        return updated ? NoContent() : NotFound($"character with id {id} not found");
+    }
+
+    [HttpDelete]
+    public async Task<ActionResult> DeleteCharacter(int id)
+    {
+        var deleted = await service.DeleteCharacterAsync(id);
+        return deleted ? NoContent() : NotFound($"character with id {id} not found");
     }
 }
