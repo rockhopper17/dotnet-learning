@@ -7,8 +7,9 @@ public class CharacterService : ICharacterService
     static List<Character> characters = new List<Character>
     {
         new Character { Id = 1, Name = "Mario", Game = "Super Mario Bros.", Role = "Hero" },
-        new Character { Id = 2, Name = "Lini", Game = "The Legend of Zelda", Role = "Hero" },
-        new Character { Id = 3, Name = "Bowser", Game = "Super Mario Bros.", Role = "Villian" }
+        new Character { Id = 2, Name = "Link", Game = "The Legend of Zelda", Role = "Hero" },
+        new Character { Id = 3, Name = "Bowser", Game = "Super Mario Bros.", Role = "Villian" },
+        new Character { Id = 7, Name = "Zelda", Game = "The Legend of Zelda", Role = "Princess" }
     };
 
     public Task<Character> AddCharacterAsync(Character character)

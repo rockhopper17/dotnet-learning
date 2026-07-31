@@ -6,7 +6,7 @@ namespace VideoGameCharacterApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class VideoGameCharactersController(ICharacterService service) : ControllerBase
+public class CharactersController(ICharacterService service) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetCharacters()
