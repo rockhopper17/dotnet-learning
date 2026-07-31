@@ -11,4 +11,15 @@ public class CharactersController(ICharacterService service) : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetCharacters()
         => Ok(await service.GetAllCharactersAsync());
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Character>> GetCharacter(int id)
+    {
+        var character = await service.GetCharacterByIdAsync(id);
+        if (character is null)
+        {
+            return NotFound($"no character with id {id}");
+        }
+        return Ok(character);
+    }
 }

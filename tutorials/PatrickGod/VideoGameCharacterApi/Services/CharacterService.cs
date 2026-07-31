@@ -25,9 +25,10 @@ public class CharacterService : ICharacterService
     public async Task<List<Character>> GetAllCharactersAsync()
         => await Task.FromResult(characters);
 
-    public Task<Character> GetCharacterByIdAsync(int id)
+    public async Task<Character?> GetCharacterByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var result = characters.FirstOrDefault(c => c.Id == id);
+        return await Task.FromResult(result);
     }
 
     public Task<bool> UpdateCharacterAsync(int id, Character character)
