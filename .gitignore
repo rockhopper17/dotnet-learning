@@ -29,9 +29,10 @@ dist/
 .idea/
 
 # Other people's course-starter repos, not my work
+eShopOnWeb
 tutorials/codele-devkit-demo
 tutorials/LearnSmartCoding/downloads
 tutorials/JulioCasal/downloads
 tutorials/JasonTaylor
-mslearn/ardalis
+tutorials/ardalis/downloads
 
