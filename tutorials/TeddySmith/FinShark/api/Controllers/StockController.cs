@@ -1,4 +1,5 @@
 using FinShark.api.Data;
+using FinShark.api.Dtos.Stock;
 using FinShark.api.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,5 +37,54 @@ public class StockController : ControllerBase
         }
 
         return Ok(stock.ToStockDto());
+    }
+
+    [HttpPost]
+    public IActionResult Create([FromBody] CreateStockRequestDto stockDto)
+    {
+        var stockModel = stockDto.ToStockFromCreateDto();
+        _dbContext.Stocks.Add(stockModel);
+        _dbContext.SaveChanges();
+        return CreatedAtAction(nameof(GetById), new { id = stockModel.Id }, stockModel.ToStockDto());
+    }
+
+    [HttpPut]
+    [Route("{id}")]
+    public IActionResult Update([FromRoute] int id, [FromBody] UpdateStockRequestDto stockDto)
+    {
+        var stockModel = _dbContext.Stocks.FirstOrDefault(x => x.Id == id);
+
+        if (stockModel == null)
+        {
+            return NotFound();
+        }
+
+        stockModel.Symbol = stockDto.Symbol;
+        stockModel.CompanyName = stockDto.CompanyName;
+        stockModel.Purchase = stockDto.Purchase;
+        stockModel.LastDiv = stockDto.LastDiv;
+        stockModel.Industry = stockDto.Industry;
+        stockModel.MarketCap = stockDto.MarketCap;
+
+        _dbContext.SaveChanges();
+
+        return Ok(stockModel.ToStockDto());
+    }
+
+    [HttpDelete]
+    [Route("{id}")]
+    public IActionResult Delete([FromRoute] int id)
+    {
+        var stockModel = _dbContext.Stocks.FirstOrDefault(x => x.Id == id);
+        
+        if (stockModel == null)
+        {
+            return NotFound();
+        }
+
+        _dbContext.Stocks.Remove(stockModel);
+        _dbContext.SaveChanges();
+
+        return NoContent();
     }
 }
