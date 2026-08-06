@@ -3,6 +3,8 @@ To render these in VS Code, you need to install an extension for Mermaid. I use 
 
 Some of these examples do not render properly in GitHub but they do in VS Code with the extension installed.
 
+per Petter Arnesen (https://github.com/PetterTech/DemoStuff/blob/main/Mermaid/mermaid.md?plain=1)
+
 ## Simple flowchart
 ``` mermaid
 flowchart TD
