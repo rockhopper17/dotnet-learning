@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using GameStore.Api.Data;
 using GameStore.Api.Dtos;
 using GameStore.Api.Models;
@@ -16,10 +17,25 @@ public static class GamesEndpoints
     //     new (2, "Final Fantasy VII Rebirth", "RPG", 69.99M, new DateOnly(2024,2,29)),
     //     new (3, "Astro Bot", "Platformer", 59.99M, new DateOnly(2024,9,6))
     // ];
+    private static readonly Dictionary<string, List<GameSummaryDto>> subscriptionMap = new()
+    {
+        {"silver", new List<GameSummaryDto>() {
+            new (1, "Street Fighter II", "Fighting", 19.99M, new DateOnly(1992,7,15)),
+        }},
+        {"gold", new List<GameSummaryDto>() {
+            new (1, "Street Fighter II", "Fighting", 19.99M, new DateOnly(1992,7,15)),
+            new (2, "Final Fantasy VII Rebirth", "RPG", 69.99M, new DateOnly(2024,2,29)),
+            new (3, "Astro Bot", "Platformer", 59.99M, new DateOnly(2024,9,6))
+        }}
+    };
 
     public static void MapGamesEndpoints(this WebApplication app)
     {
-        var group = app.MapGroup("/games");
+        var group = app.MapGroup("/games")
+            .RequireAuthorization(policy =>
+            {
+                policy.RequireRole("admin");
+            });
 
         // GET /games
         group.MapGet("/", async (GameStoreContext dbContext) =>
@@ -33,6 +49,32 @@ public static class GamesEndpoints
                     game.ReleaseDate
                 )).AsNoTracking().ToListAsync()
             );
+
+        // GET /mygames (from jwt tutorial, modified)
+        group.MapGet("/mygames", async (GameStoreContext dbContext, ClaimsPrincipal user) =>
+        {
+            var hasClaim = user.HasClaim(claim => claim.Type == "subscription");
+
+            if (hasClaim)
+            {
+                var subs = user.FindFirstValue("subscription") ?? throw new Exception("claim has no value");
+                return subscriptionMap[subs];
+            }
+
+            ArgumentNullException.ThrowIfNull(user.Identity?.Name);
+            var username = user.Identity.Name;
+
+            return await dbContext.Games
+                .Where(game => game.Genre!.Name == "Platformer") // /just dummy this since we dont have usernames tied to games
+                .Include(game => game.Genre)
+                .Select(game => new GameSummaryDto(
+                    game.Id,
+                    game.Name,
+                    game.Genre!.Name,
+                    game.Price,
+                    game.ReleaseDate
+                )).AsNoTracking().ToListAsync();
+        });
 
         // GET /games/{id}
         group.MapGet("/{id}", async (int id, GameStoreContext dbContext) =>

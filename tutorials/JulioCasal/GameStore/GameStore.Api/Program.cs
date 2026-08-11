@@ -3,6 +3,9 @@ using GameStore.Api.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAuthentication().AddJwtBearer();
+builder.Services.AddAuthorization();
+
 builder.Services.AddValidation();
 builder.AddGameStoreDb();
 
