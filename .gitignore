@@ -28,6 +28,14 @@ dist/
 *.db
 .idea/
 
+# SQLite files
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
 # Other people's course-starter repos, not my work
 eShopOnWeb
 nopCommerce
