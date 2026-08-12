@@ -21,7 +21,7 @@ public static class SeedData
                 UserName = username,
                 EmailConfirmed = true
             };
-            await userManager.CreateAsync(user, testUserPw);
+            var result = await userManager.CreateAsync(user, testUserPw);
         }
 
         if (user == null)
