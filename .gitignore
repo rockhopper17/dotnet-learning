@@ -37,8 +37,9 @@ dist/
 *.sqlite-wal
 
 # Other people's course-starter repos, not my work
-eShopOnWeb
-nopCommerce
+angular
+tutorials/eShopOnWeb
+tutorials/nopCommerce
 tutorials/codele-devkit-demo
 tutorials/LearnSmartCoding/downloads
 tutorials/JulioCasal/downloads

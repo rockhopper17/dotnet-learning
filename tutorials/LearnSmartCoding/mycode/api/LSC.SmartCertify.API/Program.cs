@@ -13,11 +13,18 @@ using LSC.SmartCertify.Application.DTOValidations;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<SmartCertifyContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DbContext"),
-        providerOptions => providerOptions.EnableRetryOnFailure());
-});
+// builder.Services.AddDbContext<SmartCertifyContext>(options =>
+// {
+//     options.UseSqlServer(builder.Configuration.GetConnectionString("DbContext"),
+//         providerOptions => providerOptions.EnableRetryOnFailure());
+// });
+builder.Services.AddDbContext<SmartCertifyContext>(opt =>
+    {
+        var baseConnection = builder.Configuration.GetConnectionString("BaseSqlServer"); // set w user-secrets, not in app settings
+        var dbName = builder.Configuration["DatabaseName"];
+        opt.UseSqlServer($"{baseConnection};Database={dbName};TrustServerCertificate=True;");
+    });
+
 
 // Add services to the container.
 
