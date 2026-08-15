@@ -1,0 +1,68 @@
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, #4a90e2, #0056b3);
+    padding: 100px 20px;
+  }
+  
+  .hero-content h1 {
+    font-size: 3rem;
+    font-weight: bold;
+  }
+  
+  .hero-content p {
+    font-size: 1.2rem;
+  }
+  
+  .hero-content .btn {
+    border-radius: 30px;
+  }
+  
+  /* Feature Cards */
+  .feature-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    background-color: #fff;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Tech Stack Section */
+  .tech-stack-section {
+    background: #f9f9f9;
+  }
+  
+  .tech-stack-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    background-color: #fff;
+  }
+  
+  .tech-stack-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tech-stack-card p {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  /* General */
+  .text-primary {
+    color: #007bff !important;
+  }
+  
+  .text-warning {
+    color: #ffc107 !important;
+  }
+  
+  .text-success {
+    color: #28a745 !important;
+  }
+  
+  .text-info {
+    color: #17a2b8 !important;
+  }
+  

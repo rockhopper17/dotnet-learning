@@ -1,0 +1,44 @@
+.footer {
+    background: linear-gradient(135deg, #1a1a1d, #343a40);
+  }
+  
+  .footer h5 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .footer p,
+  .footer a {
+    font-size: 0.9rem;
+  }
+  
+  .footer a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer hr {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .footer .bi {
+    font-size: 1.2rem;
+  }
+  
+  .footer .bi:hover {
+    color: #ffc107;
+  }
+  
+.social-media {
+    margin-top: 15px;
+}
+
+.social-icon {
+    margin-right: 15px;
+    font-size: 26px;
+    color: #007bff;
+    transition: color 0.3s;
+}
+
+.social-icon:hover {
+    color: #0056b3;
+}
