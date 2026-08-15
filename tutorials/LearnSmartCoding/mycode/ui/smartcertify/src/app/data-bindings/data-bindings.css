@@ -1,0 +1,21 @@
+.container {
+    font-family: Arial, sans-serif;
+  }
+  
+  .app-logo {
+    width: 100px;
+    height: auto;
+  }
+  
+  .text-primary {
+    color: blue;
+  }
+  
+  .text-secondary {
+    color: gray;
+  }
+  
+  .list-group-item {
+    font-size: 18px;
+  }
+  

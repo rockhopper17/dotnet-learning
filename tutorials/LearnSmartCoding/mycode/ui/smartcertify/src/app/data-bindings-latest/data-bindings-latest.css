@@ -1,0 +1,22 @@
+.container {
+    font-family: Arial, sans-serif;
+    margin: auto;
+    max-width: 600px;
+  }
+  
+  .text-primary {
+    color: #007bff;
+  }
+  
+  .text-muted {
+    color: #6c757d;
+  }
+  
+  .text-success {
+    color: #28a745;
+  }
+  
+  .text-danger {
+    color: #dc3545;
+  }
+  
