@@ -1,0 +1,5 @@
+{
+    "/books*": "/600/books$1",
+    "/register": "/register",
+    "/login": "/login"
+}
