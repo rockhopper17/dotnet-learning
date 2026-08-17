@@ -1,7 +1,7 @@
 import { PonyModel, PonyWithPositionModel } from './pony.model';
 
 export interface RaceModel {
-//   id: number;
+  id: number;
 //   betPonyId?: number;
   name: string;
 //   ponies: Array<PonyModel>;

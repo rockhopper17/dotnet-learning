@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { Races } from './races';
+import { Ponies } from "./ponies";
 
 @Component({
   selector: 'ns-root',
-  imports: [Races],
+  imports: [Races, Ponies],
   // templateUrl: './app.html',
   template: `
     <h1>PonyRacer</h1>
@@ -12,6 +13,7 @@ import { Races } from './races';
     <p [textContent]="user().name"></p>
     <!-- <h2>welcome {{ user()?.name }}</h2> -->
     <ns-races />
+    <ns-ponies />
     `,
   styleUrl: './app.css'
 })
