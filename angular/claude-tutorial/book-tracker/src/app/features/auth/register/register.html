@@ -1,1 +1,27 @@
-<p>register works!</p>
+<h1>register</h1>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div>
+        <label for="email">email</label>
+        <input id="email" type="email" formControlName="email" />
+        @if (form.controls.email.touched && form.controls.email.invalid) {
+            <p>enter valid email</p>
+        }
+    </div>
+
+    <div>
+        <label for="password">password</label>
+        <input id="password" type="password" formControlName="password" />
+        @if (form.controls.password.touched && form.controls.password.invalid) {
+            <p>password must be at least 6 characters</p>
+        }
+    </div>
+
+    @if (errMsg()) {
+        <p>{{ errMsg }}</p>
+    }
+
+    <button type="submit">register</button>
+</form>
+
+<p>already have account? <a routerLink="/login">login</a></p>
