@@ -1,0 +1,18 @@
+<h1>your books</h1>
+<a routerLink="/books/new">add a book</a>
+
+@if (books().length === 0) {
+    <p>no books yet</p>
+} @else {
+    <ul>
+        @for (book of books(); track book.id) {
+            <li>
+                <a [routerLink]="['/books', book.id]">{{ book.title }}</a> by {{ book.author }} - {{ book.status }}
+                <a [routerLink]="['/books', book.id, 'edit']">edit</a>
+                <button (click)="onDelete(book.id)">delete</button>
+            </li>
+        }
+    </ul>
+}
+
+<p><button (click)="auth.logout()">log out</button></p>

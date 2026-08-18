@@ -1,1 +1,140 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --matrix-green: #00ff41;
+  --matrix-green-dim: #00b32d;
+  --matrix-bg: #0a0e0a;
+  --matrix-bg-panel: #0f150f;
+  --matrix-border: #1a331a;
+  --matrix-error: #ff3b3b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--matrix-bg);
+  color: var(--matrix-green);
+  font-family: 'Courier New', Courier, monospace;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  line-height: 1.6;
+}
+
+h1 {
+  color: var(--matrix-green);
+  text-shadow: 0 0 8px var(--matrix-green-dim);
+  border-bottom: 1px solid var(--matrix-border);
+  padding-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+h1::before {
+  content: '> ';
+  opacity: 0.7;
+}
+
+a {
+  color: var(--matrix-green);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--matrix-green-dim);
+}
+
+a:hover {
+  text-shadow: 0 0 6px var(--matrix-green);
+  border-bottom-style: solid;
+}
+
+form {
+  background-color: var(--matrix-bg-panel);
+  border: 1px solid var(--matrix-border);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+form > div {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--matrix-green-dim);
+  font-size: 0.9rem;
+}
+
+label::before {
+  content: '$ ';
+}
+
+input,
+select {
+  width: 100%;
+  background-color: #050705;
+  color: var(--matrix-green);
+  border: 1px solid var(--matrix-border);
+  padding: 0.6rem;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--matrix-green);
+  box-shadow: 0 0 6px rgba(0, 255, 65, 0.4);
+}
+
+button {
+  background-color: transparent;
+  color: var(--matrix-green);
+  border: 1px solid var(--matrix-green);
+  padding: 0.6rem 1.2rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+button:hover {
+  background-color: var(--matrix-green);
+  color: var(--matrix-bg);
+  box-shadow: 0 0 10px var(--matrix-green);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background-color: var(--matrix-bg-panel);
+  border: 1px solid var(--matrix-border);
+  border-left: 3px solid var(--matrix-green-dim);
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+li a {
+  font-weight: bold;
+}
+
+p {
+  color: var(--matrix-green-dim);
+}
+
+/* validation / error text */
+form p {
+  color: var(--matrix-error);
+  font-size: 0.85rem;
+  margin: 0.25rem 0 0;
+}
+
+form p::before {
+  content: '! ';
+}

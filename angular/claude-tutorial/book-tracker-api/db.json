@@ -1,4 +1,27 @@
 {
-    "users": [],
-    "books": []
+  "users": [
+    {
+      "email": "homer@thesimpsons.com",
+      "password": "$2a$10$r6XNcYg0NiwuCqZB7hCWm..NHmNUc1i70811z/PLDe53jFVkm3SHu",
+      "id": 1
+    }
+  ],
+  "books": [
+    {
+      "title": "leviathan wakes",
+      "author": "james sa corey",
+      "status": "finished",
+      "rating": 5,
+      "userId": "1",
+      "id": 1
+    },
+    {
+      "title": "test 2aaaa",
+      "author": "homer",
+      "status": "reading",
+      "rating": 2,
+      "userId": "1",
+      "id": 2
+    }
+  ]
 }

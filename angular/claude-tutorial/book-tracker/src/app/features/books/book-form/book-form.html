@@ -1,0 +1,29 @@
+<h1>{{ isEditMode() ? 'edit book' : 'add book' }}</h1>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div>
+        <label for="title">title</label>
+        <input id="title" formControlName="title" />
+    </div>
+
+    <div>
+        <label for="author">author</label>
+        <input id="author" formControlName="author" />
+    </div>
+
+    <div>
+        <label for="status">status</label>
+        <select id="status" formControlName="status">
+            <option value="wishlist">wishlist</option>
+            <option value="reading">reading</option>
+            <option value="finished">finished</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="rating">rating (1-5)</label>
+        <input id="rating" type="number" min="1" max="5" formControlName="rating" />
+    </div>
+
+    <button type="submit">{{ isEditMode() ? 'save changes' : 'add book' }}</button>
+</form>

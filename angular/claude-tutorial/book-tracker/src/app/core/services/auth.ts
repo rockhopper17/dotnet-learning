@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { Service, computed, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
@@ -14,7 +14,7 @@ function decodeUserFromToken(token: string): User {
     return { id: payload.sub, email: payload.email ?? ''};
 }
 
-@Injectable({providedIn: 'root'})
+@Service()
 export class Auth {
     private http = inject(HttpClient);
     private router = inject(Router);

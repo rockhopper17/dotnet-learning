@@ -9,5 +9,8 @@ export interface Book {
     rating: number | null;
 }
 
-export type CreateBookRequest = Omit<Book, 'id' | 'userId'>;
+// export type CreateBookRequest = Omit<Book, 'id' | 'userId'>;
+// export type UpdateBookRequest = CreateBookRequest;
+export type CreateBookRequest = Omit<Book, 'id'>;
 export type UpdateBookRequest = CreateBookRequest;
+// export type UpdateBookRequest = Omit<Book, 'id' | 'userId'>;

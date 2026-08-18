@@ -1,0 +1,9 @@
+@if (book(); as b) {
+    <h1>{{ b.title }}</h1>
+    <p>by {{ b.author}} </p>
+    <p>status: {{ b.status }}</p>
+    <p>rating: {{ b.rating ?? 'not rated' }}</p>
+    <a [routerLink]="['/books', b.id, 'edit']">edit</a>
+}
+
+<p><a routerLink="/books">back to list</a></p>
